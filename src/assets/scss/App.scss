@@ -1,12 +1,17 @@
 $bg-color: yellow;
-$border-color: black;
+$border-color: white;
+
+.body {
+  height: -webkit-fill-available;
+  background: black;
+}
 
 .app {
   font-family: helvetica, arial, sans-serif;
+  color: white;
   padding: 2em;
   border: 5px solid $border-color;
-
-  p {
-    background-color: $bg-color;
-  }
+  height: 300px;
+  display: flex;
+  flex-direction: column;
 }
