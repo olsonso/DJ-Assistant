@@ -10,7 +10,6 @@ import Player from "./Player";
 class App extends React.Component<Record<string, unknown>, undefined> {
   public render() {
     const token = Cookies.get("spotifyAuthToken");
-
     return (
       <div className="app">
         <h1>BPM and Key Finder</h1>
@@ -19,7 +18,6 @@ class App extends React.Component<Record<string, unknown>, undefined> {
             <Player token={token} />
           </SpotifyApiContext.Provider>
         ) : (
-          // Display the login page
           <SpotifyAuth
             redirectUri="http://localhost:8080/callback"
             clientID="cb40697df5cf4f64bc29e16354c7d5ef"

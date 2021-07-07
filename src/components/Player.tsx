@@ -2,6 +2,7 @@ import axios from "axios";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { TrackFeatures } from "react-spotify-api";
+import Cookies from "js-cookie";
 
 type PlayerProps = {
   token: string;
@@ -28,7 +29,7 @@ const Player = ({ token }: PlayerProps) => {
   const [songTitle, setSongTitle] = useState(null);
   const [songArtist, setSongArtist] = useState(null);
   const [songId, setSongId] = useState(null);
-  const [songKey, setSongKey] = useState(null);
+  const [albumUrl, setAlbumUrl] = useState(null);
 
   useEffect(() => {
     axios
@@ -43,32 +44,35 @@ const Player = ({ token }: PlayerProps) => {
         setSongTitle(data?.item?.name);
         setSongArtist(data?.item?.artists?.[0]?.name);
         setSongId(data?.item?.id);
+        setAlbumUrl(data?.item?.album?.images[0].url);
       })
       .catch((error) => {
         console.log(error);
+        Cookies.remove("spotifyAuthToken");
       });
   }, [token]);
 
   return (
     <>
-      <div> Currently Playing: </div>
-      <div> {songTitle}</div>
-      <div> {songArtist}</div>
-      {songId && (
-        <TrackFeatures id={songId}>
-          {(features, loading, error) =>
-            features && (
-              <>
-                <div>BPM:{features.data?.tempo}</div>
-                <div>Key: {features.data?.key}</div>
-              </>
-              // features.audio_features.map(feature => (
-              //     <div key={feature.id}>{feature.key}{feature.tempo}</div>
-              // ))
-            )
-          }
-        </TrackFeatures>
-      )}
+      <div className="song-info-container">
+        <div>Song: {songTitle}</div>
+        <div>Artist: {songArtist}</div>
+        {songId && (
+          <TrackFeatures id={songId}>
+            {(features, loading, error) =>
+              features && (
+                <>
+                  <div>BPM: {features.data?.tempo}</div>
+                  <div>Key: {keys[features.data?.key]}</div>
+                  <div className="album">
+                    <img src={albumUrl} height="200px" width="200px" />
+                  </div>
+                </>
+              )
+            }
+          </TrackFeatures>
+        )}
+      </div>
     </>
   );
 };

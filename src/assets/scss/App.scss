@@ -1,17 +1,32 @@
 $bg-color: yellow;
 $border-color: white;
 
-.body {
+body {
   height: -webkit-fill-available;
   background: black;
+  color: white;
 }
 
 .app {
   font-family: helvetica, arial, sans-serif;
-  color: white;
   padding: 2em;
   border: 5px solid $border-color;
-  height: 300px;
+  height: 500px;
   display: flex;
   flex-direction: column;
+  background: black;
+  color: white;
+  font-size: 20px;
+}
+.song-info-container {
+  display: flex;
+  flex-direction: column;
+  color: lightblue;
+  .song-info {
+    display: flex;
+    flex-direction: row;
+  }
+}
+.album {
+  padding-top: 50px;
 }
