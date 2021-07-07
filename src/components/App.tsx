@@ -19,7 +19,7 @@ class App extends React.Component<Record<string, unknown>, undefined> {
           </SpotifyApiContext.Provider>
         ) : (
           <SpotifyAuth
-            redirectUri="http://localhost:8080/callback"
+            redirectUri="https://dj-assistant.netlify.app/"
             clientID="cb40697df5cf4f64bc29e16354c7d5ef"
             scopes={[
               Scopes.userReadPrivate,
