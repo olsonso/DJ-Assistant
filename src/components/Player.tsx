@@ -55,22 +55,32 @@ const Player = ({ token }: PlayerProps) => {
   return (
     <>
       <div className="song-info-container">
-        <div>Song: {songTitle}</div>
-        <div>Artist: {songArtist}</div>
-        {songId && (
-          <TrackFeatures id={songId}>
-            {(features, loading, error) =>
-              features && (
-                <>
-                  <div>BPM: {features.data?.tempo}</div>
-                  <div>Key: {keys[features.data?.key]}</div>
-                  <div className="album">
-                    <img src={albumUrl} height="200px" width="200px" />
-                  </div>
-                </>
-              )
-            }
-          </TrackFeatures>
+        {songTitle && songArtist ? (
+          <>
+            <div>Song: {songTitle}</div>
+            <div>Artist: {songArtist}</div>
+            {songId && (
+              <TrackFeatures id={songId}>
+                {(features, loading, error) =>
+                  features && (
+                    <>
+                      <div>BPM: {features.data?.tempo}</div>
+                      <div>Key: {keys[features.data?.key]}</div>
+                      <div className="album">
+                        <img src={albumUrl} height="200px" width="200px" />
+                      </div>
+                    </>
+                  )
+                }
+              </TrackFeatures>
+            )}
+          </>
+        ) : (
+          <div>
+            {" "}
+            No current song - please make sure you are playing a song currently
+            on your Spotify account{" "}
+          </div>
         )}
       </div>
     </>
